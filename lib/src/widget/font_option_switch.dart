@@ -18,13 +18,7 @@ class _FontOptionSwitch extends State<FontOptionSwitch> {
     final model = TextEditorData.of(context).fontOptionModel;
     return GestureDetector(
       onTap: () => model.changeFontOptionStatus(model.status),
-      child: model.status == FontOptionStatus.fontFamily
-          ? (widget.colorPaletteSwitch == null
-              ? _ColorOption()
-              : widget.colorPaletteSwitch)
-          : (widget.fontFamilySwitch == null
-              ? _FontOption()
-              : widget.fontFamilySwitch),
+      child: model.status == FontOptionStatus.fontFamily ? (widget.colorPaletteSwitch == null ? _ColorOption() : widget.colorPaletteSwitch) : (widget.fontFamilySwitch == null ? _FontOption() : widget.fontFamilySwitch),
     );
   }
 }
@@ -33,8 +27,8 @@ class _ColorOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 25,
-      height: 25,
+      width: 28,
+      height: 28,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12.5),
         border: Border.all(color: Colors.white, width: 1.5),
@@ -57,8 +51,8 @@ class _FontOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 25,
-      height: 25,
+      width: 28,
+      height: 28,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12.5),
         border: Border.all(color: Colors.white, width: 1.5),

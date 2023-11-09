@@ -23,14 +23,14 @@ class FontOptionModel extends ChangeNotifier {
   List<Color>? colors;
   // late Color pickedColor;
 
-  FontOptionModel(this.textStyleModel, List<String> fonts, {this.colors}) {
+  bool visibleColorize;
+
+  FontOptionModel(this.textStyleModel, List<String> fonts, {this.colors, this.visibleColorize = true}) {
     // Set default selected font
     selectedFont = textStyleModel.textStyle?.fontFamily ?? fonts[0];
 
     // Map fonts to fontFamilyModel
-    this.fonts = fonts
-        .map((font) => FontFamilyModel(font, font == selectedFont))
-        .toList();
+    this.fonts = fonts.map((font) => FontFamilyModel(font, font == selectedFont)).toList();
 
     // Set default colors
     colors = colors ??
@@ -67,10 +67,7 @@ class FontOptionModel extends ChangeNotifier {
     textStyleModel.changeFontFamily(value);
 
     // Set new selected font
-    fonts = fonts
-        .map<FontFamilyModel>((fontModel) =>
-            FontFamilyModel(fontModel.font, fontModel.font == value))
-        .toList();
+    fonts = fonts.map<FontFamilyModel>((fontModel) => FontFamilyModel(fontModel.font, fontModel.font == value)).toList();
 
     notifyListeners();
   }
@@ -79,9 +76,7 @@ class FontOptionModel extends ChangeNotifier {
   void pickColor(Color value) => textStyleModel.editTextColor(value);
 
   void changeFontOptionStatus(FontOptionStatus value) {
-    status = value == FontOptionStatus.fontFamily
-        ? FontOptionStatus.colorPalette
-        : FontOptionStatus.fontFamily;
+    status = value == FontOptionStatus.fontFamily ? FontOptionStatus.colorPalette : FontOptionStatus.fontFamily;
 
     notifyListeners();
   }

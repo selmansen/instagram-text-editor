@@ -4,23 +4,18 @@ import 'package:flutter/material.dart';
 enum TextBackgroundStatus { enable, exchange, disable }
 
 class TextStyleModel extends ChangeNotifier {
-  String text;
   TextStyle? textStyle;
   TextAlign? textAlign;
   late TextBackgroundStatus textBackgroundStatus;
 
-  TextStyleModel(
-    this.text, {
+  TextStyleModel({
     this.textAlign,
     this.textStyle,
   }) {
     textStyle = textStyle ?? TextStyle(fontSize: 10);
     textAlign = textAlign ?? TextAlign.center;
 
-    textBackgroundStatus = textStyle!.backgroundColor == null ||
-            textStyle!.backgroundColor == Colors.transparent
-        ? TextBackgroundStatus.disable
-        : TextBackgroundStatus.enable;
+    textBackgroundStatus = textStyle!.backgroundColor == null || textStyle!.backgroundColor == Colors.transparent ? TextBackgroundStatus.disable : TextBackgroundStatus.enable;
   }
 
   void editTextAlinment(TextAlign value) {
@@ -31,23 +26,15 @@ class TextStyleModel extends ChangeNotifier {
 
   void editTextColor(Color value, {bool changeBackground = false}) {
     if (textBackgroundStatus == TextBackgroundStatus.disable) {
-      this.textStyle = this
-          .textStyle!
-          .copyWith(color: value, backgroundColor: Colors.transparent);
+      this.textStyle = this.textStyle!.copyWith(color: value, backgroundColor: Colors.transparent);
     } else if (textBackgroundStatus == TextBackgroundStatus.enable) {
-      this.textStyle = this
-          .textStyle!
-          .copyWith(color: _adjustColor(value), backgroundColor: value);
+      this.textStyle = this.textStyle!.copyWith(color: _adjustColor(value), backgroundColor: value);
     } else {
       if (changeBackground) {
         // Exchange color and background if background status is changing
-        this.textStyle = this.textStyle!.copyWith(
-            color: textStyle!.backgroundColor,
-            backgroundColor: textStyle!.color);
+        this.textStyle = this.textStyle!.copyWith(color: textStyle!.backgroundColor, backgroundColor: textStyle!.color);
       } else {
-        this.textStyle = this
-            .textStyle!
-            .copyWith(color: value, backgroundColor: _adjustColor(value));
+        this.textStyle = this.textStyle!.copyWith(color: value, backgroundColor: _adjustColor(value));
       }
     }
 
@@ -56,7 +43,6 @@ class TextStyleModel extends ChangeNotifier {
 
   void editFontSize(double value) {
     this.textStyle = this.textStyle!.copyWith(fontSize: value);
-
     notifyListeners();
   }
 
@@ -91,8 +77,7 @@ class TextStyleModel extends ChangeNotifier {
     }
 
     final hsl = HSLColor.fromColor(color!);
-    final hslLight =
-        hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
+    final hslLight = hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
 
     return hslLight.toColor();
   }

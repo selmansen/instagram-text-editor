@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:text_editor/text_editor.dart';
 
@@ -56,6 +58,8 @@ class _MyHomePageState extends State<MyHomePage> {
   String _text = 'Sample Text';
   TextAlign _textAlign = TextAlign.center;
 
+  final _textEditorController = TextEditingController();
+
   void _tapHandler(text, textStyle, textAlign) {
     showGeneralDialog(
       context: context,
@@ -71,55 +75,64 @@ class _MyHomePageState extends State<MyHomePage> {
             backgroundColor: Colors.transparent,
             body: SafeArea(
               // top: false,
-              child: Container(
-                child: TextEditor(
-                  fonts: fonts,
-                  text: text,
-                  textStyle: textStyle,
-                  textAlingment: textAlign,
-                  minFontSize: 10,
-                  // paletteColors: [
-                  //   Colors.black,
-                  //   Colors.white,
-                  //   Colors.blue,
-                  //   Colors.red,
-                  //   Colors.green,
-                  //   Colors.yellow,
-                  //   Colors.pink,
-                  //   Colors.cyanAccent,
-                  // ],
-                  // decoration: EditorDecoration(
-                  //   textBackground: TextBackgroundDecoration(
-                  //     disable: Text('Disable'),
-                  //     enable: Text('Enable'),
-                  //   ),
-                  //   doneButton: Icon(Icons.close, color: Colors.white),
-                  //   fontFamily: Icon(Icons.title, color: Colors.white),
-                  //   colorPalette: Icon(Icons.palette, color: Colors.white),
-                  //   alignment: AlignmentDecoration(
-                  //     left: Text(
-                  //       'left',
-                  //       style: TextStyle(color: Colors.white),
-                  //     ),
-                  //     center: Text(
-                  //       'center',
-                  //       style: TextStyle(color: Colors.white),
-                  //     ),
-                  //     right: Text(
-                  //       'right',
-                  //       style: TextStyle(color: Colors.white),
-                  //     ),
-                  //   ),
-                  // ),
-                  onEditCompleted: (style, align, text) {
-                    setState(() {
-                      _text = text;
-                      _textStyle = style;
-                      _textAlign = align;
-                    });
-                    Navigator.pop(context);
-                  },
-                ),
+              child: StatefulBuilder(
+                builder: (context, myState) {
+                  return TextEditor(
+                    onTextChanged: (value) {
+                      myState(() => _text = value);
+                    },
+                    controller: _textEditorController,
+                    fonts: fonts,
+                    textStyle: textStyle,
+                    textAlingment: textAlign,
+                    minFontSize: 10,
+                    fontDecoration: FontDecoration(
+                      size: const Size(28, 28),
+                      fontColor: Colors.white,
+                      fontActiveColor: Colors.black,
+                      radius: BorderRadius.circular(7),
+                    ),
+                    visibleColorize: false,
+                    backgroundColor: Colors.black.withOpacity(0.4),
+                    text: _text,
+                    maxFontSize: 60,
+                    paletteColors: [
+                      Colors.black,
+                      Colors.white,
+                      Colors.blue,
+                      Colors.red,
+                      Colors.green,
+                      Colors.yellow,
+                      Colors.pink,
+                      Colors.cyanAccent,
+                    ],
+                    decoration: EditorDecoration(
+                      imageFilter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                      bottomSettingDecoration: const BoxDecoration(
+                        color: Color.fromRGBO(17, 23, 45, 0.8),
+                      ),
+                      textBackground: TextBackgroundDecoration(
+                        disable: Icon(Icons.text_fields, color: Colors.lightGreen[100]),
+                        enable: Icon(Icons.text_fields, color: Colors.white),
+                      ),
+                      doneButton: Icon(Icons.close, color: Colors.white),
+                      fontFamily: Icon(Icons.title, color: Colors.white),
+                      colorPalette: Icon(Icons.palette, color: Colors.white),
+                      alignment: AlignmentDecoration(
+                        left: Icon(Icons.format_align_left_sharp, color: Colors.white),
+                        center: Icon(Icons.format_align_center_sharp, color: Colors.white),
+                        right: Icon(Icons.format_align_right_sharp, color: Colors.white),
+                      ),
+                    ),
+                    onEditCompleted: (style, align) {
+                      setState(() {
+                        _textStyle = style;
+                        _textAlign = align;
+                      });
+                      Navigator.pop(context);
+                    },
+                  );
+                },
               ),
             ),
           ),
