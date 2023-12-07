@@ -230,7 +230,6 @@ class _TextEditorState extends State<TextEditor> {
                       if (widget.tagList!.isNotEmpty) Tags(widget.tagList!),
                     ] else ...[
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
                             children: [
@@ -250,10 +249,11 @@ class _TextEditorState extends State<TextEditor> {
                                   enableWidget: widget.decoration?.textBackground?.enable,
                                   disableWidget: widget.decoration?.textBackground?.disable,
                                 ),
+                                SizedBox(width: 16),
                               ]
                             ],
                           ),
-                          Expanded(child: _fontOptionModel.status == FontOptionStatus.fontFamily ? FontFamily(_fontOptionModel.fonts, widget.fontDecoration) : ColorPalette(_fontOptionModel.colors!, _fontOptionModel.visibleColorize)),
+                          Expanded(child: Align(alignment: Alignment.centerRight, child: _fontOptionModel.status == FontOptionStatus.fontFamily ? FontFamily(_fontOptionModel.fonts, widget.fontDecoration) : ColorPalette(_fontOptionModel.colors!, _fontOptionModel.visibleColorize))),
                         ],
                       ),
                     ],
