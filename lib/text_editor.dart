@@ -184,32 +184,37 @@ class _TextEditorState extends State<TextEditor> {
                     Expanded(
                       child: Row(
                         children: [
-                          FontSize(
-                            minFontSize: widget.minFontSize!,
-                            maxFontSize: widget.maxFontSize!,
-                            fontSizedHeight: widget.fontSizedHeight!,
-                          ),
-                          Expanded(
-                            child: Container(
-                              child: Center(
-                                child: TextField(
-                                  controller: widget.controller,
-                                  onChanged: (value) {
-                                    widget.onTextChanged!(value);
-                                    setState(() {});
-                                  },
-                                  expands: true,
-                                  maxLines: null,
-                                  minLines: null,
-                                  textAlignVertical: TextAlignVertical.center,
-                                  keyboardType: TextInputType.text,
-                                  style: _textStyleModel.textStyle,
-                                  textAlign: _textStyleModel.textAlign!,
-                                  autofocus: true,
-                                  cursorColor: Colors.white,
+                          Stack(
+                            children: [
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                child: Center(
+                                  child: TextField(
+                                    controller: widget.controller,
+                                    onChanged: (value) {
+                                      widget.onTextChanged!(value);
+                                      setState(() {});
+                                    },
+                                    expands: true,
+                                    maxLines: null,
+                                    minLines: null,
+                                    textAlignVertical: TextAlignVertical.center,
+                                    keyboardType: TextInputType.text,
+                                    style: _textStyleModel.textStyle,
+                                    textAlign: _textStyleModel.textAlign!,
+                                    autofocus: true,
+                                    cursorColor: Colors.white,
+                                  ),
                                 ),
                               ),
-                            ),
+                              Center(
+                                child: FontSize(
+                                  minFontSize: widget.minFontSize!,
+                                  maxFontSize: widget.maxFontSize!,
+                                  fontSizedHeight: widget.fontSizedHeight!,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
