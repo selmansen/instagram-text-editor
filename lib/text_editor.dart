@@ -198,6 +198,10 @@ class _TextEditorState extends State<TextEditor> {
                                     widget.onTextChanged!(value);
                                     setState(() {});
                                   },
+                                  expands: true,
+                                  maxLines: null,
+                                  minLines: null,
+                                  textAlignVertical: TextAlignVertical.center,
                                   keyboardType: TextInputType.text,
                                   style: _textStyleModel.textStyle,
                                   textAlign: _textStyleModel.textAlign!,
