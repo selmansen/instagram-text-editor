@@ -198,7 +198,7 @@ class _TextEditorState extends State<TextEditor> {
                                     maxLines: null,
                                     minLines: null,
                                     textAlignVertical: TextAlignVertical.center,
-                                    keyboardType: TextInputType.text,
+                                    keyboardType: TextInputType.multiline,
                                     style: _textStyleModel.textStyle,
                                     textAlign: _textStyleModel.textAlign!,
                                     autofocus: true,
